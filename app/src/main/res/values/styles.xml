@@ -8,21 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!--<style name="SearchButton">-->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:background">@color/searchBtn</item>-->
-        <!--<item name="android:textColor">@android:color/black</item>-->
-        <!--<item name="android:paddingTop">8dp</item>-->
-        <!--<item name="android:paddingBottom">8dp</item>-->
-        <!--<item name="android:paddingRight">16dp</item>-->
-        <!--<item name="android:paddingLeft">16dp</item>-->
-        <!--<item name="android:text">@string/searchButton</item>-->
-        <!--<item name="android:textAllCaps">true</item>-->
-        <!--<item name="android:layout_gravity">end</item>-->
-        <!--<item name="android:textSize">17sp</item>-->
-    <!--</style>-->
-
     <style name="SearchField">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -32,10 +17,11 @@
     </style>
 
     <style name="BookTitle">
-        <item name="android:maxLines">1</item>
+        <item name="android:maxLines">2</item>
         <item name="android:layout_margin">@dimen/book_margin</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#000000</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
