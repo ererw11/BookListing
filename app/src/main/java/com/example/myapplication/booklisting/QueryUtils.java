@@ -18,7 +18,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public final class QueryUtils {
 
     /**
@@ -37,6 +36,7 @@ public final class QueryUtils {
      * parsing a JSON response.
      */
     public static List<Book> fetchBookData(String requestUrl) {
+        Log.d(QueryUtils.class.getSimpleName(), requestUrl);
         // Create the URL object
         URL url = createUrl(requestUrl);
 
@@ -148,6 +148,7 @@ public final class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
 
+            Log.d(QueryUtils.class.getSimpleName(), bookJSON);
             // Create a JSONObject from the JSON response string
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
 
@@ -167,7 +168,20 @@ public final class QueryUtils {
 
                 // Extract the values for the keys called "title", "authors", and "infoLink"
                 String title = volumeInfo.getString("title");
-                String author = volumeInfo.getString("authors");
+
+                String author = "";
+
+                if (volumeInfo.has("authors")) {
+
+                    JSONArray authorsJsonArray = volumeInfo.optJSONArray("authors");
+
+                    if (authorsJsonArray.length() > 0) {
+                        for (int j = 0; j < authorsJsonArray.length(); j++) {
+                            author += authorsJsonArray.optString(j) + " ";
+                        }
+                    }
+                }
+
                 String url = volumeInfo.getString("infoLink");
 
                 // Create a new {@link Book} object with the title, author, and link from the JSON
@@ -178,10 +192,8 @@ public final class QueryUtils {
             }
         } catch (JSONException e) {
             Log.e("QueryUtils", "Problem parsing the Book JSON results", e);
-
         }
 
         return books;
     }
-
 }
