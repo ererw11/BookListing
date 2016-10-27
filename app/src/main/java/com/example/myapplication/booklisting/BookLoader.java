@@ -7,7 +7,9 @@ import java.util.List;
 
 public class BookLoader extends AsyncTaskLoader<List<Book>> {
 
-    /** Query Url */
+    /**
+     * Query Url
+     */
     private String mUrl;
 
     /**
@@ -30,7 +32,7 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     public List<Book> loadInBackground() {
         if (mUrl == null) {
             return null;
-    }
+        }
 
         // Perform the network request, parse the response and extract a list of books
         List<Book> books = QueryUtils.fetchBookData(mUrl);

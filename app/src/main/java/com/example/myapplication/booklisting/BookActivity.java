@@ -3,9 +3,11 @@ package com.example.myapplication.booklisting;
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +31,7 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
      * URL for the book data Test
      */
     private static final String GOOGLE_BOOKS_1 = "https://www.googleapis.com/books/v1/volumes?q=";
-    private static final String GOOGLE_BOOKS_2 = "maxResults=30";
+    private static final String GOOGLE_BOOKS_2 = "&maxResults=30";
 
     /**
      * Constant value for the Book loader ID.
@@ -72,6 +75,25 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
         // so that the list can be populated in the user interface
         bookListView.setAdapter(mAdapter);
 
+        // Set an item click listener on the ListView, which sends an intent to a web browser
+        // to open a website with more information about the selected book
+        bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Find the book that was selected
+                Book currentBook = mAdapter.getItem(position);
+
+                // Convert the String URL into a URL object (to pass into the Intent constructor)
+                Uri bookUrl = Uri.parse(currentBook.getURL());
+
+                // Create a new intent to view the book URL
+                Intent infoLinkIntent = new Intent(Intent.ACTION_VIEW, bookUrl);
+
+                // Send the intent to launch a new activity
+                startActivity(infoLinkIntent);
+            }
+        });
+
         searchFieldEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,7 +104,7 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Editable searchFieldEditable = searchFieldEditText.getText();
                 searchTerm = searchFieldEditable.toString();
-                searchQuery = GOOGLE_BOOKS_1 + searchTerm + "&" + GOOGLE_BOOKS_2;
+                searchQuery = GOOGLE_BOOKS_1 + searchTerm + GOOGLE_BOOKS_2;
 
                 // Get a reference to the ConnectivityManager to check the state of the network connectivity
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
