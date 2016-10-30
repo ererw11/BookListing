@@ -12,15 +12,15 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
      */
     private String mUrl;
 
-    /**
-     * Constructs a new {@link BookLoader}.
-     *
-     * @param context
-     * @param url
-     */
-    public BookLoader(Context context, String url) {
-        super(context);
-        mUrl = url;
+        /**
+         * Constructs a new {@link BookLoader}.
+         *
+         * @param context
+         * @param url
+         */
+        public BookLoader(Context context, String url) {
+            super(context);
+            mUrl = url;
     }
 
     @Override
@@ -32,10 +32,10 @@ public class BookLoader extends AsyncTaskLoader<List<Book>> {
     public List<Book> loadInBackground() {
         if (mUrl == null) {
             return null;
+        } else {
+            // Perform the network request, parse the response and extract a list of books
+            List<Book> books = QueryUtils.fetchBookData(mUrl);
+            return books;
         }
-
-        // Perform the network request, parse the response and extract a list of books
-        List<Book> books = QueryUtils.fetchBookData(mUrl);
-        return books;
     }
 }

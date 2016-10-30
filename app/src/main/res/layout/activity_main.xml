@@ -34,6 +34,10 @@
         <EditText
             android:id="@+id/searchFieldEditText"
             style="@style/SearchField" />
+
+        <TextView
+            android:id="@+id/searchBtn"
+            style="@style/SearchButton" />
     </LinearLayout>
 
     <TextView
