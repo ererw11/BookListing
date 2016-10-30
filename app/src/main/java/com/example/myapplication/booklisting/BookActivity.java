@@ -51,6 +51,7 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
     private ListView bookListView;
     private EditText searchFieldEditText;
     private Editable searchFieldEditable;
+    private TextView submitButton;
 
     private String searchQuery = null;
     private String searchTerm = null;
@@ -95,7 +96,7 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
             }
         });
 
-        TextView submitButton = (TextView) findViewById(R.id.searchBtn);
+        submitButton = (TextView) findViewById(R.id.searchBtn);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
