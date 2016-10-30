@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,10 +95,14 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
             }
         });
 
+        getLoaderManager().initLoader(BOOK_LOADER_ID, null, BookActivity.this);
+
         submitButton = (TextView) findViewById(R.id.searchBtn);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                getLoaderManager().restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
 
                 View loadingIndicator = findViewById(R.id.loading_spinner);
                 loadingIndicator.setVisibility(View.VISIBLE);
