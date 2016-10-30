@@ -100,6 +100,7 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 View loadingIndicator = findViewById(R.id.loading_spinner);
                 loadingIndicator.setVisibility(View.VISIBLE);
 
@@ -108,38 +109,6 @@ public class BookActivity extends AppCompatActivity implements LoaderCallbacks<L
                 searchFieldEditable = searchFieldEditText.getText();
                 searchTerm = searchFieldEditable.toString();
                 searchQuery = GOOGLE_BOOKS_1 + searchTerm + GOOGLE_BOOKS_2;
-
-                // Find a reference to the {@link ListVew} in the layout
-                ListView bookListView = (ListView) findViewById(R.id.list);
-
-                // Create a new adapter that takes the list of books as input
-                mAdapter = new BookAdapter(BookActivity.this, new ArrayList<Book>());
-
-                mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-                bookListView.setEmptyView(mEmptyStateTextView);
-
-                // Set the adapter on the {@link ListView}
-                // so that the list can be populated in the user interface
-                bookListView.setAdapter(mAdapter);
-
-                // Set an item click listener on the ListView, which sends an intent to a web browser
-                // to open a website with more information about the selected book
-                bookListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        // Find the book that was selected
-                        Book currentBook = mAdapter.getItem(position);
-
-                        // Convert the String URL into a URL object (to pass into the Intent constructor)
-                        Uri bookUrl = Uri.parse(currentBook.getURL());
-
-                        // Create a new intent to view the book URL
-                        Intent infoLinkIntent = new Intent(Intent.ACTION_VIEW, bookUrl);
-
-                        // Send the intent to launch a new activity
-                        startActivity(infoLinkIntent);
-                    }
-                });
 
                 // Get a reference to the ConnectivityManager to check the state of the network connectivity
                 ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
